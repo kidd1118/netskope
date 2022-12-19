@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector,useDispatch } from 'react-redux';
-import { add, comment } from '../store/movies';
+import { filter, comment } from '../store/movies';
 
 const faces = [
   "http://i.pravatar.cc/300?img=1",
@@ -80,24 +80,30 @@ export default function SimpleCard() {
 //   const classes = useStyles();
 
   const [cards, setCards] = React.useState([card]);
-  const movies = useSelector((state) => state.movies.list);
   const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies.list);
+  const options = [];
+  movies.forEach(item => { 
+    options.push(item.name);
+  })
 
   return (
     <div className="root">
       <div>
         <h1>Movies</h1>
       </div>
-
+      <Divider dark="true" />
+      <br/>
       <Autocomplete
         disablePortal
-        id="combo-box-demo"
-        options={movies}
+        id="cb-movies"
+        options={options}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Movie" />}
+        onChange={(event, newValue) => dispatch(filter(newValue))}
       />
       <div>
-        <Button
+        {/* <Button
           variant="contained"
           size="small"
           color="primary"
@@ -116,15 +122,15 @@ export default function SimpleCard() {
           }}
         >
           Reset
-        </Button>
+        </Button> */}
       </div>
-
-      <Grid container spacing={1}>
+      <br/>
+      <Grid container spacing={2} columns={8}>
         {movies.map((movie, index) => {
           const { name, description } = movie;
           return (
             <Grid item key={index}>
-              <Card key={index}>
+              <Card key={index} onClick={() => console.log(name)}>
                 <CardContent>
                   <Typography
                     className={"MuiTypography--heading"}
@@ -140,9 +146,9 @@ export default function SimpleCard() {
                     {description}
                   </Typography>
                   <Divider light />
-                  {faces.map(face => (
+                  {/* {faces.map(face => (
                     <Avatar key={face} src={face} />
-                  ))}
+                  ))} */}
                 </CardContent>
               </Card>
             </Grid>
