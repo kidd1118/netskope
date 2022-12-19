@@ -199,7 +199,7 @@ const top100Films = [
     { label: 'Snatch', year: 2000 },
     { label: '3 Idiots', year: 2009 },
     { label: 'Monty Python and the Holy Grail', year: 1975 },
-  ];
+];
 
 export default function SimpleCard() {
 //   const classes = useStyles();

@@ -1,4 +1,4 @@
-const connector = require('../../database/dbConnector');
+const connector = require('../database/dbConnector');
 
 async function getMovies() {
     const conn = new connector();
