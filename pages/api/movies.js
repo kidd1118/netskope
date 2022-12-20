@@ -1,4 +1,4 @@
-const connector = require('../database/dbConnector');
+const connector = require('../../database/dbConnector');
 
 async function getMovies() {
     const conn = new connector();
@@ -9,7 +9,7 @@ async function getMovies() {
     for (const row in rows) {
         const movie = {};
         for (const col in rows[row]) {
-            movie[col] = rows[row][col];
+            movie[col.replaceAll(" ", "")] = rows[row][col];
             //console.log(col, "=", rows[row][col]);
         }
         movies.push(movie);

@@ -1,5 +1,4 @@
-import React from "react";
-// import { makeStyles } from '@mui/styles';
+import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,82 +9,24 @@ import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useSelector,useDispatch } from 'react-redux';
-import { filter, comment } from '../store/movies';
-
-const faces = [
-  "http://i.pravatar.cc/300?img=1",
-  "http://i.pravatar.cc/300?img=2",
-  "http://i.pravatar.cc/300?img=3",
-  "http://i.pravatar.cc/300?img=4"
-];
-
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     display: "flex",
-//     justifyContent: "initial"
-//   },
-//   title: {
-//     marginBottom: "30px"
-//   },
-//   header: {
-//     marginBottom: "20px",
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "space-between"
-//   },
-//   card: {
-//     maxWidth: 300,
-//     // margin: "auto",
-//     transition: "0.3s",
-//     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-//     "&:hover": {
-//       boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
-//     }
-//   },
-//   media: {
-//     paddingTop: "56.25%"
-//   },
-//   content: {
-//     textAlign: "left",
-//     padding: theme.spacing.unit * 3
-//   },
-//   divider: {
-//     margin: `${theme.spacing.unit * 3}px 0`
-//   },
-//   heading: {
-//     fontWeight: "bold"
-//   },
-//   subheading: {
-//     lineHeight: 1.8
-//   },
-//   avatar: {
-//     display: "inline-block",
-//     border: "2px solid white",
-//     "&:not(:first-of-type)": {
-//       marginLeft: theme.spacing.unit
-//     }
-//   }
-// }));
-
-const card = {
-  image:
-    "https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg",
-  name: "Nature Around Us",
-  description:
-    "We are going to learn different kinds of species in nature that live together to form amazing environment."
-};
+import { useSelector, useDispatch } from 'react-redux';
+import { add, filter, getMoviesAsync } from '../store/movies';
 
 export default function SimpleCard() {
-//   const classes = useStyles();
 
-  const [cards, setCards] = React.useState([card]);
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies.list);
+
+  useEffect(() => {
+    dispatch(getMoviesAsync());
+  }, [dispatch]);
+
   const options = [];
-  movies.forEach(item => { 
-    options.push(item.name);
-  })
+  movies.forEach(item => {
+      if (options.indexOf(item.Film) < 0) {
+          options.push(item.Film);
+      }
+  });
 
   return (
     <div className="root">
@@ -99,16 +40,16 @@ export default function SimpleCard() {
         id="cb-movies"
         options={options}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Movie" />}
+        renderInput={(params) => <TextField {...params} label="Search Movie" />}
         onChange={(event, newValue) => dispatch(filter(newValue))}
       />
       <div>
-        {/* <Button
+        <Button
           variant="contained"
           size="small"
           color="primary"
           onClick={() => {
-            dispatch(add({ name: 'Pulp Fiction', description: 1994 }));
+            dispatch(add({ Film: 'Pulp Fiction', Year: 1994 }));
           }}
         >
           Add Movie
@@ -118,37 +59,34 @@ export default function SimpleCard() {
           size="small"
           color="primary"
           onClick={() => {
-            setCards([]);
+            dispatch(getMoviesAsync());
           }}
         >
           Reset
-        </Button> */}
+        </Button>
       </div>
       <br/>
       <Grid container spacing={2} columns={8}>
         {movies.map((movie, index) => {
-          const { name, description } = movie;
+          const { Film, Year } = movie;
           return (
             <Grid item key={index}>
-              <Card key={index} onClick={() => console.log(name)}>
+              <Card key={index} onClick={() => console.log(Film)}>
                 <CardContent>
                   <Typography
                     className={"MuiTypography--heading"}
                     variant={"h6"}
                     gutterBottom
                   >
-                    {name}
+                    {Film}
                   </Typography>
                   <Typography
                     className={"MuiTypography--subheading"}
                     variant={"caption"}
                   >
-                    {description}
+                    {Year}
                   </Typography>
                   <Divider light />
-                  {/* {faces.map(face => (
-                    <Avatar key={face} src={face} />
-                  ))} */}
                 </CardContent>
               </Card>
             </Grid>
