@@ -7,7 +7,7 @@ export const moviesApi = createApi({
   endpoints: (builder) => ({
     getMoviesByName: builder.query({
       query: () => { 
-        return `api/movies`; 
+        return `api/movie/get`; 
     }
     })
   })
@@ -15,6 +15,10 @@ export const moviesApi = createApi({
 
 export const { useGetMoviesByNameQuery } = moviesApi;
 
-export const getData = () => {
-  return axios.get('/api/movies');
+export const getData = (Id) => {
+  return axios.get('/api/movie/get', {
+      params: {
+        Id: Id
+      }
+  });
 }

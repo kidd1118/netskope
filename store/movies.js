@@ -1,22 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getData } from '../service/movies';
 
-// export type movie {
-//     Audiencescore%
-//     Film
-//     Genre
-//     LeadStudio
-//     Profitability
-//     RottenTomatoes%
-//     WorldwideGross
-//     Year
-//     comments: []
-// }
-
 export const getMoviesAsync = createAsyncThunk(
-    'movies/getMovies',
-    async () => {
-        const response = await getData();
+    'movie/get',
+    async (Id) => {
+        const response = await getData(Id);
         return response.data;
     }
 );
@@ -31,14 +19,12 @@ const moviesSlice= createSlice({
     },
     reducers:{
         add: (state, action) => {
+            init.push(action.payload);
             state.list.push(action.payload);
         },
         filter: (state, action) => {
-            const movie = state.list.filter(item => item.Film == action.payload);
+            const movie = state.list.filter(item => item.Id == action.payload);
             state.list = movie && movie.length ? movie : init;
-        },
-        comment: (state, action) => {
-            state.list.comments.push(action.payload);
         }
     },
     extraReducers: (builder) => {
@@ -54,5 +40,5 @@ const moviesSlice= createSlice({
     }
 })
 
-export const {add, filter, comment} = moviesSlice.actions
+export const {add, filter} = moviesSlice.actions
 export default moviesSlice

@@ -1,25 +1,26 @@
 import { useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
-import { add, filter, getMoviesAsync } from '../store/movies';
+import { filter, getMoviesAsync } from '../store/movies';
+import Link from "next/link"
 
 export default function SimpleCard() {
 
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies.list);
+  let isFetchMovie = false;
 
   useEffect(() => {
+    console.log("getMoviesAsync", isFetchMovie);
+    isFetchMovie = true;
     dispatch(getMoviesAsync());
-  }, [dispatch]);
+  }, [!isFetchMovie]);
 
   const options = [];
   movies.forEach(item => {
@@ -43,32 +44,10 @@ export default function SimpleCard() {
         renderInput={(params) => <TextField {...params} label="Search Movie" />}
         onChange={(event, newValue) => dispatch(filter(newValue))}
       />
-      <div>
-        <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={() => {
-            dispatch(add({ Film: 'Pulp Fiction', Year: 1994 }));
-          }}
-        >
-          Add Movie
-        </Button>
-        <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={() => {
-            dispatch(getMoviesAsync());
-          }}
-        >
-          Reset
-        </Button>
-      </div>
       <br/>
       <Grid container spacing={2} columns={8}>
         {movies.map((movie, index) => {
-          const { Film, Year } = movie;
+          const { Film, Year, Id } = movie;
           return (
             <Grid item key={index}>
               <Card key={index} onClick={() => console.log(Film)}>
@@ -87,6 +66,9 @@ export default function SimpleCard() {
                     {Year}
                   </Typography>
                   <Divider light />
+                  <Link href={`/details?Id=${Id}`}>
+                    details
+                  </Link>
                 </CardContent>
               </Card>
             </Grid>
