@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
@@ -22,10 +22,10 @@ export default function SimpleCard() {
     dispatch(getMoviesAsync());
   }, [!isFetchMovie]);
 
-  const options = [];
+  const [options] = useState([]);
   movies.forEach(item => {
       if (options.indexOf(item.Film) < 0) {
-          options.push(item.Film);
+        options.push(item.Film);
       }
   });
 

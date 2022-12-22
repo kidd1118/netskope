@@ -1,13 +1,13 @@
-version: "2"
+version: "1"
+
 services:
-  node:
-    image: "node:16"
-    user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - ./:/home/node/app
-    expose:
-      - "8081"
-    command: "npm start"
+  app:
+    image: netskope-docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deploy
+    ports:
+      - 3000:3000
+    # volumes:
+    #   - ./:/app

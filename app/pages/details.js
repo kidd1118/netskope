@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getMoviesAsync } from '../store/movies';
 import { getCommentsAsync, addCommentsAsync, add } from '../store/comments';
 import { useRouter } from 'next/router'
+import Link from "next/link"
 
 export default function SimpleCard() {
     
@@ -20,7 +21,7 @@ export default function SimpleCard() {
     const movies = useSelector((state) => state.movies.list.filter(item => item.Id == Id));
 
     useEffect(() => {
-        console.log("getMoviesAsync");
+        // console.log("getMoviesAsync");
         dispatch(getMoviesAsync(Id));
     }, [(!movies || !movies.length) && Id]);
 
@@ -31,7 +32,7 @@ export default function SimpleCard() {
     let isFetchComment = false;
 
     useEffect(() => {
-        console.log("getCommentsAsync");
+        // console.log("getCommentsAsync");
         isFetchComment = true;
         dispatch(getCommentsAsync(Id));
     }, [!isFetchComment && Id]);
@@ -47,6 +48,9 @@ export default function SimpleCard() {
     }
   return (
     <div className="root">
+      <Link href={`/`}>
+        Back
+      </Link>
       {
         <Card key={Id} onClick={() => console.log(Film)}>
             <CardContent>

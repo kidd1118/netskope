@@ -23,7 +23,7 @@ const moviesSlice= createSlice({
             state.list.push(action.payload);
         },
         filter: (state, action) => {
-            const movie = state.list.filter(item => item.Id == action.payload);
+            const movie = state.list.filter(item => item.Film == action.payload);
             state.list = movie && movie.length ? movie : init;
         }
     },
