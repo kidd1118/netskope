@@ -9,22 +9,19 @@
 - docker
 
 ## Launch App
-- dockerhub
+- docker
 ```
-    docker pull kidd1118/netskope
     docker-compose up
 ```
+http://localhost:8081/
 
-- local docker
-```
-    docker-compose up
-```
 
 - local dev
 ```
     cd app
     npm run dev
 ```
+http://localhost:3000/
 
 ## Future
 - Images Minify
