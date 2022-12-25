@@ -51,25 +51,27 @@ export default function SimpleCard() {
           return (
             <Grid item key={index}>
               <Card key={index} onClick={() => console.log(Film)}>
-                <CardContent>
-                  <Typography
-                    className={"MuiTypography--heading"}
-                    variant={"h6"}
-                    gutterBottom
-                  >
-                    {Film}
-                  </Typography>
-                  <Typography
-                    className={"MuiTypography--subheading"}
-                    variant={"caption"}
-                  >
-                    {Year}
-                  </Typography>
-                  <Divider light />
-                  <Link href={`/details?Id=${Id}`}>
-                    details
-                  </Link>
-                </CardContent>
+                <Link href={`/details?Id=${Id}`}>
+                  <CardContent>
+                    <Typography
+                      className={"MuiTypography--heading"}
+                      variant={"h6"}
+                      gutterBottom
+                    >
+                      {Film}
+                    </Typography>
+                    <Typography
+                      className={"MuiTypography--subheading"}
+                      variant={"caption"}
+                    >
+                      {Year}
+                    </Typography>
+                    <Divider light />
+                    <Typography align="right">
+                        details &gt;
+                    </Typography>
+                  </CardContent>
+                </Link>
               </Card>
             </Grid>
           );

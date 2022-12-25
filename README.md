@@ -22,5 +22,14 @@
 
 - local dev
 ```
+    cd app
     npm run dev
 ```
+
+## Future
+- Images Minify
+- UI Fine Tune
+- Component Re-use
+- Conversions
+
+## Continue ...

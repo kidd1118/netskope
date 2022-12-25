@@ -48,9 +48,6 @@ export default function SimpleCard() {
     }
   return (
     <div className="root">
-      <Link href={`/`}>
-        Back
-      </Link>
       {
         <Card key={Id} onClick={() => console.log(Film)}>
             <CardContent>
@@ -122,7 +119,7 @@ export default function SimpleCard() {
         </Card>
       }
       <br/>
-      <h3>Comments</h3>
+      <h3>&nbsp;Comments</h3>
       <Divider light />
       <br/>
       <Grid container spacing={2} columns={8}>
@@ -157,15 +154,26 @@ export default function SimpleCard() {
         })}
       </Grid>
       <br/>
+      &nbsp;
       <TextField required onChange={(newValue) => { setErrorComment(!isValid(newValue.target.value)); setComment(newValue.target.value); }}
         id="tfComment" label="Your comment" variant="outlined" value={tfComment} error={errorComment} />
       <br/>
       <br/>
+      &nbsp;
       <TextField required onChange={(newValue) => { setErrorName(!isValid(newValue.target.value)); setName(newValue.target.value); }} 
         id="tfName" label="Your name" variant="outlined" value={tfName} error={errorName} />
       <br/>
       <br/>
       <div>
+        &nbsp;
+        <Button variant="contained"
+            size="small"
+            color="primary">
+          <Link href={`/`}>
+            Back
+          </Link>
+        </Button>
+        &nbsp;
         <Button
           variant="contained"
           size="small"

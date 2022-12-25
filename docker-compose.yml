@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   db:
+    container_name : netskope-db
     image: mysql
     restart: always
     environment:
@@ -9,15 +10,32 @@ services:
       MYSQL_PASSWORD: test
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: netskope
+    # network_mode: "host"
     ports:
       - 8080:3306
     volumes:
       - ./sqls:/docker-entrypoint-initdb.d
+    networks :
+      netskope:
+        ipv4_address: 172.30.0.2
   app:
+    container_name : netskope-app
     image: netskope-app
     build:
       context: .
       dockerfile: Dockerfile
       target: deploy
+    # network_mode: "host"
     ports:
-      - 3000:3000
+      - 8081:3000
+    networks:
+      netskope:
+        ipv4_address: 172.30.0.3
+networks:
+  netskope:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
+          gateway: 172.30.0.1

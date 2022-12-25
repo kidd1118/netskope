@@ -3,7 +3,6 @@ WORKDIR /app
 COPY /app ./
 RUN yarn && yarn build
 
-
 FROM node:18-alpine AS deploy
 WORKDIR /app
 COPY --from=build /app/package.json ./package.json
