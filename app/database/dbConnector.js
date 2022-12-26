@@ -5,8 +5,7 @@ class dbConnector {
   connection;
   constructor(config) {
     this.config = config || {
-      // host: "127.0.0.1",
-      host: "172.30.0.2",
+      host: "172.30.0.2", //for docker. host: "127.0.0.1", //for dev.
       port: '3306',
       user: "root",
       password: "123456",

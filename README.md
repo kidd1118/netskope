@@ -24,9 +24,11 @@ http://localhost:8081/
 http://localhost:3000/
 
 ## Future
+- How to build mysql image including schema and data, not from volumes?
+- Use Nginx as service
 - Images Minify
 - UI Fine Tune
 - Component Re-use
-- Conversions
+- Conventions
 
 ## Continue ...
